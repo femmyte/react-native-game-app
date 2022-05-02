@@ -11,13 +11,13 @@ const StartGame = () => {
 
       <Card style={styles.card}>
         <Text>Enter a Number</Text>
-        <Input />
+        <Input style={styles.input} keyboardType='numeric' maxLength={2} />
         <View style={styles.buttonContainer}>
           <View style={styles.button}>
-            <Button title='Reset' color={color.primary} />
+            <Button title='Reset' color='#c717fc' />
           </View>
           <View style={styles.button}>
-            <Button title='Confirm' />
+            <Button title='Confirm' color={color.primary} />
           </View>
         </View>
         {/* </View> */}
@@ -46,6 +46,9 @@ const styles = StyleSheet.create({
   },
   button: {
     width: 100,
+  },
+  input: {
+    width: 50,
   },
 })
 export default StartGame
