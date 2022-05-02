@@ -1,17 +1,36 @@
 import React, { useState } from 'react'
-import { Text, View, StyleSheet, TextInput, Button } from 'react-native'
+import { Text, View, StyleSheet, TextInput, Button, Alert } from 'react-native'
 import color from '../color'
 import Card from '../components/Card'
 import Input from '../components/Input'
 const StartGame = () => {
   const [number, setNumber] = useState('')
+  const [confirm, setConfirm] = useState(false)
+  const [confirmedNumber, setConfirmedNumber] = useState()
   const handleChange = (inputNumber) => {
     setNumber(inputNumber.replace(/[^0-9]/g, ''))
-    // setNumber(e.target.value)
   }
-  console.log(number)
   const handleReset = () => {
     setNumber('')
+    setConfirm(false)
+  }
+  const handleConfirm = () => {
+    const chosenNumber = parseInt(number)
+    if (isNaN(chosenNumber) || chosenNumber <= 0 || chosenNumber > 99) {
+      Alert.alert(
+        'Invalid Number',
+        'Input has to be a number between 1 and 99',
+        [{ text: 'Okay', style: 'destructive', onPress: handleReset }]
+      )
+      return
+    }
+    setConfirm(true)
+    setConfirmedNumber(chosenNumber)
+    setNumber('')
+  }
+  let confirmOutput
+  if (confirm) {
+    confirmOutput = <Text>{confirmedNumber}</Text>
   }
   return (
     <View style={styles.screen}>
@@ -31,11 +50,15 @@ const StartGame = () => {
             <Button title='Reset' color='#c717fc' onPress={handleReset} />
           </View>
           <View style={styles.button}>
-            <Button title='Confirm' color={color.primary} />
+            <Button
+              title='Confirm'
+              color={color.primary}
+              onPress={handleConfirm}
+            />
           </View>
         </View>
-        <Text>{number}</Text>
       </Card>
+      {confirmOutput}
     </View>
   )
 }
