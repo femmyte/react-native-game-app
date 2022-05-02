@@ -1,20 +1,14 @@
 import React, { useState } from 'react'
-import {
-  Text,
-  View,
-  StyleSheet,
-  TextInput,
-  Button,
-  Alert,
-  Keyboard,
-} from 'react-native'
+import { Text, View, StyleSheet, Button, Alert, Keyboard } from 'react-native'
 import color from '../color'
 import Card from '../components/Card'
 import Input from '../components/Input'
+import GamePage from './GamePage'
 const StartGame = () => {
   const [number, setNumber] = useState('')
   const [confirm, setConfirm] = useState(false)
   const [confirmedNumber, setConfirmedNumber] = useState()
+  const [startGame, setStartGame] = useState(false)
   const handleChange = (inputNumber) => {
     setNumber(inputNumber.replace(/[^0-9]/g, ''))
   }
@@ -47,9 +41,12 @@ const StartGame = () => {
             <Text style={styles.confirmText}> {confirmedNumber}</Text>
           </View>
         </View>
-        <Button title='Confirm' />
+        <Button title='Confirm' onPress={setStartGame.bind(this, true)} />
       </Card>
     )
+  }
+  if (startGame) {
+    return <GamePage />
   }
   return (
     <View style={styles.screen}>
