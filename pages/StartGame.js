@@ -1,26 +1,40 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Text, View, StyleSheet, TextInput, Button } from 'react-native'
 import color from '../color'
 import Card from '../components/Card'
 import Input from '../components/Input'
 const StartGame = () => {
+  const [number, setNumber] = useState('')
+  const handleChange = (inputNumber) => {
+    setNumber(inputNumber.replace(/[^0-9]/g, ''))
+    // setNumber(e.target.value)
+  }
+  console.log(number)
+  const handleReset = () => {
+    setNumber('')
+  }
   return (
     <View style={styles.screen}>
-      {/* <Text>Guess a Number</Text> */}
       <Text style={styles.title}>Start a New Game</Text>
 
       <Card style={styles.card}>
         <Text>Enter a Number</Text>
-        <Input style={styles.input} keyboardType='numeric' maxLength={2} />
+        <Input
+          style={styles.input}
+          keyboardType='numeric'
+          maxLength={2}
+          onChangeText={handleChange}
+          value={number}
+        />
         <View style={styles.buttonContainer}>
           <View style={styles.button}>
-            <Button title='Reset' color='#c717fc' />
+            <Button title='Reset' color='#c717fc' onPress={handleReset} />
           </View>
           <View style={styles.button}>
             <Button title='Confirm' color={color.primary} />
           </View>
         </View>
-        {/* </View> */}
+        <Text>{number}</Text>
       </Card>
     </View>
   )
