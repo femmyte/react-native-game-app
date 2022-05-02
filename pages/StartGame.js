@@ -30,7 +30,17 @@ const StartGame = () => {
   }
   let confirmOutput
   if (confirm) {
-    confirmOutput = <Text>{confirmedNumber}</Text>
+    confirmOutput = (
+      <Card style={styles.confirmCard}>
+        <View style={styles.numberContainer}>
+          <Text>You Entered:</Text>
+          <View style={styles.confirmTextContainer}>
+            <Text style={styles.confirmText}> {confirmedNumber}</Text>
+          </View>
+        </View>
+        <Button title='Confirm' />
+      </Card>
+    )
   }
   return (
     <View style={styles.screen}>
@@ -47,7 +57,11 @@ const StartGame = () => {
         />
         <View style={styles.buttonContainer}>
           <View style={styles.button}>
-            <Button title='Reset' color='#c717fc' onPress={handleReset} />
+            <Button
+              title='Reset'
+              color={color.secondary}
+              onPress={handleReset}
+            />
           </View>
           <View style={styles.button}>
             <Button
@@ -70,22 +84,56 @@ const styles = StyleSheet.create({
   },
   title: {
     textAlign: 'center',
+    marginVertical: 10,
+    fontSize: 18,
+    fontWeight: 'bold',
   },
   card: {
     width: 300,
     maxWidth: '80%',
     alignItems: 'center',
+    marginTop: 14,
+    padding: 20,
   },
   buttonContainer: {
     width: '100%',
     flexDirection: 'row',
     justifyContent: 'space-between',
+    marginTop: 20,
   },
   button: {
     width: 100,
   },
   input: {
     width: 50,
+  },
+  confirmCard: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: 160,
+    height: 160,
+    marginVertical: 40,
+    padding: 10,
+  },
+  numberContainer: {
+    flex: 1,
+    width: '100%',
+    alignItems: 'center',
+  },
+  confirmTextContainer: {
+    borderRadius: 20,
+    borderColor: color.secondary,
+    borderWidth: 2,
+    width: '60%',
+    height: 50,
+    marginTop: 10,
+    marginBottom: 20,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  confirmText: {
+    fontSize: 25,
+    color: color.secondary,
   },
 })
 export default StartGame
