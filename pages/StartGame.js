@@ -1,5 +1,13 @@
 import React, { useState } from 'react'
-import { Text, View, StyleSheet, TextInput, Button, Alert } from 'react-native'
+import {
+  Text,
+  View,
+  StyleSheet,
+  TextInput,
+  Button,
+  Alert,
+  Keyboard,
+} from 'react-native'
 import color from '../color'
 import Card from '../components/Card'
 import Input from '../components/Input'
@@ -27,6 +35,7 @@ const StartGame = () => {
     setConfirm(true)
     setConfirmedNumber(chosenNumber)
     setNumber('')
+    Keyboard.dismiss()
   }
   let confirmOutput
   if (confirm) {
