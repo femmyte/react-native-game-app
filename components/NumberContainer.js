@@ -8,16 +8,12 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     borderColor: color.secondary,
     borderWidth: 2,
-    width: '60%',
-    height: 50,
+    width: 70,
+    height: 70,
     marginTop: 10,
     marginBottom: 20,
     alignItems: 'center',
     justifyContent: 'center',
-  },
-  confirmText: {
-    fontSize: 25,
-    color: color.secondary,
   },
 })
 export default NumberContainer

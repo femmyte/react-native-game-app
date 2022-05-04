@@ -127,5 +127,9 @@ const styles = StyleSheet.create({
     width: '100%',
     alignItems: 'center',
   },
+  confirmText: {
+    fontSize: 25,
+    color: color.secondary,
+  },
 })
 export default StartGame
