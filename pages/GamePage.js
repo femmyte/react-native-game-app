@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Text, View, StyleSheet, Button } from 'react-native'
+import { Text, View, StyleSheet, Button, Alert } from 'react-native'
 import color from '../color'
 import Card from '../components/Card'
 import NumberContainer from '../components/NumberContainer'
@@ -18,6 +18,17 @@ const GamePage = ({ number }) => {
   const [currentGuess, setCurrentGuess] = useState(
     generateRandomNumber(1, 100, number)
   )
+  const [predict, setPredict] = useState()
+  const handleNextGuess = (direction) => {
+    if (
+      (currentGuess > number && direction === 'greater') ||
+      (currentGuess < number && direction === 'lower')
+    ) {
+      setPredict('game over')
+    } else {
+      setPredict('you won')
+    }
+  }
   return (
     <View style={styles.screen}>
       <Text style={styles.title}>Opponent's Game</Text>
@@ -26,12 +37,21 @@ const GamePage = ({ number }) => {
       </NumberContainer>
       <Card style={styles.buttonContainer}>
         <View style={styles.btn}>
-          <Button title='LOWER' color={color.primary} />
+          <Button
+            title='LOWER'
+            color={color.primary}
+            onPress={handleNextGuess.bind(this, 'lower')}
+          />
         </View>
         <View style={styles.btn}>
-          <Button title='GREATER' color={color.secondary} />
+          <Button
+            title='GREATER'
+            color={color.secondary}
+            onPress={handleNextGuess.bind(this, 'greater')}
+          />
         </View>
       </Card>
+      {predict && <Text>{predict}</Text>}
     </View>
   )
 }
