@@ -4,11 +4,11 @@ import color from '../color'
 import Card from '../components/Card'
 import Input from '../components/Input'
 import GamePage from './GamePage'
-const StartGame = () => {
+import NumberContainer from '../components/NumberContainer'
+const StartGame = ({ onStartGame }) => {
   const [number, setNumber] = useState('')
   const [confirm, setConfirm] = useState(false)
   const [confirmedNumber, setConfirmedNumber] = useState()
-  const [startGame, setStartGame] = useState(false)
   const handleChange = (inputNumber) => {
     setNumber(inputNumber.replace(/[^0-9]/g, ''))
   }
@@ -37,17 +37,18 @@ const StartGame = () => {
       <Card style={styles.confirmCard}>
         <View style={styles.numberContainer}>
           <Text>You Entered:</Text>
-          <View style={styles.confirmTextContainer}>
+          <NumberContainer>
             <Text style={styles.confirmText}> {confirmedNumber}</Text>
-          </View>
+          </NumberContainer>
         </View>
-        <Button title='Confirm' onPress={setStartGame.bind(this, true)} />
+        <Button
+          title='Start Game'
+          onPress={onStartGame.bind(this, confirmedNumber)}
+        />
       </Card>
     )
   }
-  if (startGame) {
-    return <GamePage />
-  }
+
   return (
     <View style={styles.screen}>
       <Text style={styles.title}>Start a New Game</Text>
@@ -125,21 +126,6 @@ const styles = StyleSheet.create({
     flex: 1,
     width: '100%',
     alignItems: 'center',
-  },
-  confirmTextContainer: {
-    borderRadius: 20,
-    borderColor: color.secondary,
-    borderWidth: 2,
-    width: '60%',
-    height: 50,
-    marginTop: 10,
-    marginBottom: 20,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  confirmText: {
-    fontSize: 25,
-    color: color.secondary,
   },
 })
 export default StartGame
