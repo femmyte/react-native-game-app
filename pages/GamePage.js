@@ -20,11 +20,16 @@ const GamePage = ({ number }) => {
   )
   const [predict, setPredict] = useState()
   const handleNextGuess = (direction) => {
+    // checked if the computer guess is greater than the number entered by the player and the user chose greter it should alert game over
     if (
       (currentGuess > number && direction === 'greater') ||
       (currentGuess < number && direction === 'lower')
     ) {
+      Alert.alert("Don't lie", 'you also know that what you choose is wrong', [
+        { text: 'OOPS!', style: 'destructive' },
+      ])
       setPredict('game over')
+      return
     } else {
       setPredict('you won')
     }
