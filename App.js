@@ -17,12 +17,16 @@ export default function App() {
   const handleGameOver = (roundNumber) => {
     setGameRound(roundNumber)
   }
+  const handleReset = () => {
+    setConfirmedNumber(0)
+    setGameRound(0)
+  }
   let content = <StartGamePage onStartGame={handleStartGame} />
 
   if (confirmedNumber && gameRound <= 0) {
-    content = <GamePage number={confirmedNumber} onGameOver={setGameRound} />
+    content = <GamePage number={confirmedNumber} onGameOver={handleGameOver} />
   } else if (gameRound > 0) {
-    content = <GameOverPage />
+    content = <GameOverPage onRefreshGame={handleReset} />
   }
   return (
     <View style={styles.container}>
