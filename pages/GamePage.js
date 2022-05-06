@@ -19,14 +19,15 @@ const GamePage = ({ number, onGameOver }) => {
     generateRandomNumber(1, 100, number)
   )
   const [predict, setPredict] = useState()
+  const [rounds, setRounds] = useState(0)
   const setLow = useRef(1)
   const setHigh = useRef(100)
   // console.log(setOver)
   useEffect(() => {
     if (currentGuess === number) {
-      onGameOver(1)
+      onGameOver(rounds)
     }
-  })
+  }, [currentGuess, number, onGameOver])
   const handleNextGuess = (direction) => {
     // checked if the computer guess is greater than the number entered by the player and the user chose greater it should alert game over
     if (
@@ -52,7 +53,7 @@ const GamePage = ({ number, onGameOver }) => {
       currentGuess
     )
     setCurrentGuess(nextNumber)
-    console.log(nextNumber, setLow.current, setHigh.current)
+    setRounds((prevState) => prevState + 1)
   }
 
   return (

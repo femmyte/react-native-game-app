@@ -26,7 +26,7 @@ export default function App() {
   if (confirmedNumber && gameRound <= 0) {
     content = <GamePage number={confirmedNumber} onGameOver={handleGameOver} />
   } else if (gameRound > 0) {
-    content = <GameOverPage onRefreshGame={handleReset} />
+    content = <GameOverPage onRefreshGame={handleReset} round={gameRound} />
   }
   return (
     <View style={styles.container}>
