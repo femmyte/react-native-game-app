@@ -4,18 +4,25 @@ import { StyleSheet, Text, View } from 'react-native'
 import Header from './components/Header'
 import StartGamePage from './pages/StartGame'
 import GamePage from './pages/GamePage'
+import GameOverPage from './pages/GameOverPage'
 export default function App() {
   const [confirmedNumber, setConfirmedNumber] = useState()
   // const [startGame, setStartGame] = useState(false)
-
+  const [gameRound, setGameRound] = useState(0)
   const handleStartGame = (gameNumber) => {
     setConfirmedNumber(gameNumber)
+    setGameRound(0)
   }
 
+  const handleGameOver = (roundNumber) => {
+    setGameRound(roundNumber)
+  }
   let content = <StartGamePage onStartGame={handleStartGame} />
 
-  if (confirmedNumber) {
-    content = <GamePage number={confirmedNumber} />
+  if (confirmedNumber && gameRound <= 0) {
+    content = <GamePage number={confirmedNumber} onGameOver={setGameRound} />
+  } else if (gameRound > 0) {
+    content = <GameOverPage />
   }
   return (
     <View style={styles.container}>
