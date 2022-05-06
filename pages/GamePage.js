@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import { Text, View, StyleSheet, Button, Alert } from 'react-native'
 import color from '../color'
 import Card from '../components/Card'
@@ -14,26 +14,47 @@ const generateRandomNumber = (min, max, exclude) => {
     return randNum
   }
 }
-const GamePage = ({ number }) => {
+const GamePage = ({ number, onGameOver }) => {
   const [currentGuess, setCurrentGuess] = useState(
     generateRandomNumber(1, 100, number)
   )
   const [predict, setPredict] = useState()
+  const setLow = useRef(1)
+  const setHigh = useRef(100)
+  // console.log(setOver)
+  useEffect(() => {
+    if (currentGuess === number) {
+      onGameOver(1)
+    }
+  })
   const handleNextGuess = (direction) => {
-    // checked if the computer guess is greater than the number entered by the player and the user chose greter it should alert game over
+    // checked if the computer guess is greater than the number entered by the player and the user chose greater it should alert game over
     if (
       (currentGuess > number && direction === 'greater') ||
       (currentGuess < number && direction === 'lower')
     ) {
       Alert.alert("Don't lie", 'you also know that what you choose is wrong', [
-        { text: 'OOPS!', style: 'destructive' },
+        { text: 'OOPS!', style: 'cancel' },
       ])
-      setPredict('game over')
+      // setPredict('game over')
       return
-    } else {
-      setPredict('you won')
     }
+    if (direction === 'lower') {
+      setHigh.current = currentGuess
+      console.log(setHigh.current)
+    } else {
+      setLow.current = currentGuess
+      console.log(setLow.current)
+    }
+    const nextNumber = generateRandomNumber(
+      setLow.current,
+      setHigh.current,
+      currentGuess
+    )
+    setCurrentGuess(nextNumber)
+    console.log(nextNumber, setLow.current, setHigh.current)
   }
+
   return (
     <View style={styles.screen}>
       <Text style={styles.title}>Opponent's Game</Text>
