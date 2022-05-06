@@ -1,13 +1,20 @@
 import React from 'react'
-import { Text, View, StyleSheet } from 'react-native'
+import { Text, View, StyleSheet, Button } from 'react-native'
 import color from '../color'
 import Card from '../components/Card'
-const GameOverPage = () => {
+const GameOverPage = ({ onRefreshGame }) => {
   return (
     <View style={styles.screen}>
       <Card style={styles.card}>
         <Text style={styles.text}>Game Over</Text>
       </Card>
+      <View style={styles.button}>
+        <Button
+          title='Restart Game'
+          onPress={onRefreshGame}
+          color={color.primary}
+        />
+      </View>
     </View>
   )
 }
@@ -27,6 +34,10 @@ const styles = StyleSheet.create({
     color: color.primary,
     fontSize: 20,
     fontWeight: 'bold',
+  },
+  button: {
+    marginTop: 30,
+    width: 150,
   },
 })
 
